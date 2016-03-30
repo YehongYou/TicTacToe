@@ -20,7 +20,7 @@ h1{
   height:450px;
   margin-left: auto;
   margin-right:auto;
-  border: 2px solid black;
+  border: 4px solid #e0993e;
   background: url("../images/board.jpg");
   background-size: cover;
   /*
@@ -43,8 +43,10 @@ h1{
   text-align: center;
   font-size: 150px;
   background-size: cover;
-
+  color: rgba(255,255,255,0);
 }
+
+
 
 .box:hover{
   background-color: rgba(255, 255, 255, 0.5);
@@ -76,16 +78,60 @@ h1{
 
 #result h2{
   margin-top: 0;
+}
 
+#result span{
+  color:red;
+}
+
+.aside {
+  float:left;
+  margin-left: 20px;
+  height: 450px;
+  width: 200px;
+  box-sizing: border-box;
+}
+
+iframe{
+  width:100px;
+  height:100px;
+  border-radius: 100px;
+  overflow: hidden;
+  border: 2px solid gold;
+  position: fixed;
+  bottom: 0;
+  right: 0;
 }
 
 #control{
   clear: both;
   text-align: center;
   padding-top: 20px;
-
-
 }
+
+#congraduation{
+  width: 600px;
+  height:10px;
+  background-color: rgba(255, 255, 255, 0.8);
+  position: absolute;
+  left: 25%;
+  top:25%;
+  border-radius: 10px;
+  text-align: center;
+  overflow: hidden;
+  transition: 1s;
+  visibility: hidden;
+}
+
+#congraduation:hover{
+  height:200px;
+}
+
+#congraduation p{
+  font-size: 300%;
+  color:red;
+}
+
 
 button{
   display:inline-block;

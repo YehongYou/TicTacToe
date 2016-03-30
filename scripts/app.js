@@ -36,15 +36,24 @@ board.addEventListener('click',function(event)
       }
       winner = getWinner();
       if(winner === 'X'){
+        congraduation(winner);
+        show();
+        showLong();
         playerX++;
         document.getElementById('playerXS').innerHTML = playerX.toString();
       }
       if(winner === 'O'){
+        congraduation(winner);
+        show();
+        showLong();
         playerO++;
         document.getElementById('playerOS').innerHTML = playerO.toString();
       }
       if(step === 9 ){
         if (winner !== 'X' && winner !== 'O'){
+          congraduation(winner);
+          show();
+          showLong();
           tie++;
           document.getElementById('TieS').innerHTML = tie.toString();
         }
@@ -54,19 +63,21 @@ board.addEventListener('click',function(event)
 });
 
 restartBtn.addEventListener('click',function(){
+    hidden();
     resetBox();
 });
 
 clearBtn.addEventListener("click",function(){
+    hidden();
     resetBox();
-    var playerX = 0;
-    var playerO = 0;
-    var tie = 0;
+    playerX = 0;
+    playerO = 0;
+    tie = 0;
     document.getElementById('playerXS').innerHTML = playerX.toString();
     document.getElementById('TieS').innerHTML = playerO.toString();
     document.getElementById('playerOS').innerHTML = tie.toString();
 });
-
+//=================== functions ========================
 
 
 function resetBox(){
@@ -79,7 +90,39 @@ function resetBox(){
   }
 }
 
-// decide who is winner
+function show(){
+  document.getElementById('congraduation').style.height = "0px";
+  document.getElementById('congraduation').style.visibility= "visible";
+
+}
+
+function showLong(){
+    document.getElementById('congraduation').style.height = "200px";
+}
+
+function hidden(){
+  document.getElementById('congraduation').style.height = "0px";
+  document.getElementById('congraduation').style.visibility= "hidden";
+}
+
+
+
+function congraduation(winner){
+    if (winner ==="X"){
+      var xWiner = document.getElementById('congraduationP');
+      xWiner.innerHTML ="Player black win !"
+    }else if(winner ==="O"){
+      var oWiner = document.getElementById('congraduationP');
+      oWiner.innerHTML ="Player white win !"
+    }else {
+      var noWiner = document.getElementById('congraduationP');
+      noWiner.innerHTML ="This round tie !!!"
+    }
+};
+
+
+
+// ===============decide who is winner functions================
 var getWinner = function() {
    if (winnerIsX()) {
      return 'X';
