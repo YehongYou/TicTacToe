@@ -2,48 +2,92 @@ console.log("js working");
 
 var step = 0;
 var board = document.getElementById("board");
+var restartBtn = document.getElementById("restartBtn");
+var clearBtn =document.getElementById("clearBtn");
+var winner ="";
+var playerX=0;
+var playerO=0;
+var tie=0;
+
+
+board.addEventListener('mouseover',function(event){
+   if(step%2 === 0){
+     event.target.style.cursor = "url('images/black-x.png'), cell";
+   }else{
+     event.target.style.cursor = "url('images/white-o.png'), cell";
+   }
+
+
+})
+
 board.addEventListener('click',function(event)
 {
-  if(step%2 === 0){
-    event.target.innerHTML="X";
-    event.target.style.background = "yellow";
-    step++;
-  }else {
-    event.target.innerHTML="O";
-    event.target.style.background = "blue";
-    step++;
+  if (event.target.className ==="box" && step < 9 && winner != "X" && winner != "O" &&
+      event.target.innerHTML != "X" && event.target.innerHTML != "O"
+  ){
+      if(step%2 === 0){
+        event.target.innerHTML="X";
+        event.target.style.backgroundImage = "url('images/black-x.png')";
+        step++;
+      }else {
+        event.target.innerHTML="O";
+        event.target.style.backgroundImage = "url('images/white-o.png')";
+        step++;
+      }
+      winner = getWinner();
+      if(winner === 'X'){
+        playerX++;
+        document.getElementById('playerXS').innerHTML = playerX.toString();
+      }
+      if(winner === 'O'){
+        playerO++;
+        document.getElementById('playerOS').innerHTML = playerO.toString();
+      }
+      if(step === 9 ){
+        if (winner !== 'X' && winner !== 'O'){
+          tie++;
+          document.getElementById('TieS').innerHTML = tie.toString();
+        }
+      }
   }
+
+});
+
+restartBtn.addEventListener('click',function(){
+    resetBox();
+});
+
+clearBtn.addEventListener("click",function(){
+    resetBox();
+    var playerX = 0;
+    var playerO = 0;
+    var tie = 0;
+    document.getElementById('playerXS').innerHTML = playerX.toString();
+    document.getElementById('TieS').innerHTML = playerO.toString();
+    document.getElementById('playerOS').innerHTML = tie.toString();
 });
 
 
 
-
-
-
-var setBoxValue = function(key) {
-  switch(key) {
-    case 'box1': return '';
-    case 'box2': return '';
-    case 'box3': return '';
-    case 'box4': return '';
-    case 'box5': return '';
-    case 'box6': return '';
-    case 'box7': return '';
-    case 'box7': return '';
-    case 'box8': return '';
-    case 'box9': return '';
+function resetBox(){
+  step=0;
+  winner='';
+  var boxs = document.getElementsByClassName("box");
+  for (var i=0; i<9; i++){
+    boxs[i].innerHTML='';
+    boxs[i].style.background= "";
   }
-};
+}
 
 // decide who is winner
 var getWinner = function() {
    if (winnerIsX()) {
-     return 'x';
+     return 'X';
    }
    if (winnerIsO()) {
-     return 'o';
+     return 'O';
    }
-   return 'tie';
+   return '';
  };
 //====   x ======
  function winnerIsX(){
@@ -68,7 +112,7 @@ function winsDiagonalX(){
 };
 
 function allThreeX(a,b,c){
-  return getBoxValue(a)==="x" && getBoxValue(b) === "x" && getBoxValue(c) === "x";
+  return getBoxValue(a)==="X" && getBoxValue(b) === "X" && getBoxValue(c) === "X";
 }
 
 // =====  o =====
@@ -94,10 +138,9 @@ function winsDiagonalO(){
 };
 
 function allThreeO(a,b,c){
- return getBoxValue(a)==="o" && getBoxValue(b) === "o" && getBoxValue(c) === "o";
+ return getBoxValue(a)==="O" && getBoxValue(b) === "O" && getBoxValue(c) === "O";
 }
 
-function getBoxValue(){
-
-
+function getBoxValue(a){
+    return document.getElementById(a).innerHTML;
 }

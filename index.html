@@ -3,21 +3,34 @@
 <head>
   <meta charset="UTF-8">
   <title>TicTacToe</title>
+<!--  <link href='https://fonts.googleapis.com/css?family=Satisfy' rel='stylesheet' type='text/css'>-->
+  <link href='https://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="stylesheet/style.css">
 </head>
 <body>
-  <h1>TicTacToe</h1>
+  <center><h1>TicTacToe</h1></center>
+  <div id="result">
+     <center><h2>Result</h2></center>
+     <div id="playerX" class="result">Player Black:  <span id="playerXS">0</span></div>
+     <div id="Tie" class="result">Tie:  <span id="TieS">0</span></div>
+     <div id="playerO" class="result">Player White:  <span id="playerOS">0</span></div>
+  </div>
 
   <div id="board">
-     <div class="box1 box"></div>
-     <div class="box2 box"></div>
-     <div class="box3 box"></div>
-     <div class="box4 box"></div>
-     <div class="box5 box"></div>
-     <div class="box6 box"></div>
-     <div class="box7 box"></div>
-     <div class="box8 box"></div>
-     <div class="box9 box"></div>
+     <div id="box1" class="box"></div>
+     <div id="box2" class="box"></div>
+     <div id="box3" class="box"></div>
+     <div id="box4" class="box"></div>
+     <div id="box5" class="box"></div>
+     <div id="box6" class="box"></div>
+     <div id="box7" class="box"></div>
+     <div id="box8" class="box"></div>
+     <div id="box9" class="box"></div>
+  </div>
+
+  <div id="control">
+  <button id="restartBtn" type="button" name="button">Next</button>
+  <button id="clearBtn" type="button" name="button">Clear</button>
   </div>
 <script type="text/javascript" src="scripts/app.js"></script>
 </body>
