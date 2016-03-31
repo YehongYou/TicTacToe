@@ -4,11 +4,13 @@ var step = 0;
 var board = document.getElementById("board");
 var restartBtn = document.getElementById("restartBtn");
 var clearBtn =document.getElementById("clearBtn");
+var selectionBtn = document.getElementById('backgroundBtn');
 var winner ="";
 var playerX=0;
 var playerO=0;
 var tie=0;
 
+webInit();
 
 board.addEventListener('mouseover',function(event){
    if(step%2 === 0){
@@ -63,11 +65,13 @@ board.addEventListener('click',function(event)
 });
 
 restartBtn.addEventListener('click',function(){
+    window.clearInterval(timer);
     hidden();
     resetBox();
 });
 
 clearBtn.addEventListener("click",function(){
+    window.clearInterval(timer);
     hidden();
     resetBox();
     playerX = 0;
@@ -77,6 +81,11 @@ clearBtn.addEventListener("click",function(){
     document.getElementById('TieS').innerHTML = playerO.toString();
     document.getElementById('playerOS').innerHTML = tie.toString();
 });
+
+selectionBtn.addEventListener('change',function(){
+    changeBackground();
+});
+
 //=================== functions ========================
 
 
@@ -88,6 +97,8 @@ function resetBox(){
     boxs[i].innerHTML='';
     boxs[i].style.background= "";
   }
+  document.getElementById('timeLeft').innerHTML= '0';
+  document.getElementById('timeInput').value = '0';
 }
 
 function show(){
@@ -106,7 +117,6 @@ function hidden(){
 }
 
 
-
 function congraduation(winner){
     if (winner ==="X"){
       var xWiner = document.getElementById('congraduationP');
@@ -120,6 +130,64 @@ function congraduation(winner){
     }
 };
 
+function changeBackground(){
+   var option = document.getElementById('backgroundBtn').value;
+   if (option ==="dark"){
+   document.getElementById('body').style.background = "URL('images/Wiki-background.jpg')";
+   document.getElementById('body').style.backgroundSize = "cover";
+   document.getElementById('body').style.color ="white";
+ } else if (option ==='bright'){
+   document.getElementById('body').style.background = "URL('images/background2.jpg')";
+   document.getElementById('body').style.backgroundSize = "cover";
+   document.getElementById('body').style.color = "black";
+ }else{
+ }
+}
+// ======================== loacal storage =======================
+function saveScore(){
+  localStorage.setItem("playerX",playerX);
+  localStorage.setItem("playerO",playerO);
+  localStorage.setItem("tie",tie);
+}
+
+window.setInterval(saveScore,1000);
+
+function webInit(){
+  if (localStorage.getItem("playerX")){
+  document.getElementById("playerXS").innerHTML = localStorage.getItem("playerX").toString();
+  playerX=Number(localStorage.getItem("playerX"));
+  }
+  if(localStorage.getItem("tie")){
+  document.getElementById("TieS").innerHTML = localStorage.getItem("tie").toString();
+  tie=Number(localStorage.getItem("tie"));
+  }
+  if(localStorage.getItem("playerO")){
+  document.getElementById("playerOS").innerHTML = localStorage.getItem("playerO").toString();
+  playerO=Number(localStorage.getItem("playerO"));
+  }
+
+}
+
+
+// ======== timer function =============
+var timer = null;
+var startBtn = document.getElementById("timerBtn");
+function timerCountDown(){
+   var timeLeft = Number(document.getElementById('timeInput').value);
+   timeLeft = timeLeft - 1;
+   console.log(timeLeft);
+   document.getElementById('timeLeft').innerHTML = timeLeft.toString();
+   document.getElementById('timeInput').value = timeLeft.toString();
+   if (Number(document.getElementById('timeLeft').innerHTML) <= 0 ||
+   Number(document.getElementById('timeInput').value) <= 0){
+     window.clearInterval(timer);
+   }
+}
+
+ startBtn.addEventListener('click',function(){
+   window.clearInterval(timer);
+   timer = window.setInterval(timerCountDown,1000);
+});
 
 
 // ===============decide who is winner functions================
