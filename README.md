@@ -35,7 +35,7 @@ http://yehongyou.github.io/TicTacToe/
 3. break down the problem and solve it with many small functions with javascript
 4. finish the basic functions of the games
 5. refine the project and optimize the UI and increase some functions
-6. finialize the project
+6. finalize the project
  
 
 
