@@ -4,10 +4,13 @@
 This is a simple TicTacToe game, and it is easy to play. 
 
 ### Ojective
-To develop a simple game (TicTacToe) of GO theme with a nice UI. 
+To develop a web application game (TicTacToe) of GO theme with a nice UI. 
 
 ### Github repo：
-https://githubro
+https://github.com/YehongYou/TicTacToe
+
+### a hosted version of the game:
+http://yehongyou.github.io/TicTacToe/
 
 ### Technologies used
 * HTML
