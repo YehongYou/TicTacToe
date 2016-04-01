@@ -25,7 +25,7 @@ http://yehongyou.github.io/TicTacToe/
 * players can play many rounds and the website can record their scores;
 
 ### Unsolved problems
-* playing with the computer (AI);
+* to make the web game responsive for every device
 * changing the size of game board;
 
 ### Development strategy
