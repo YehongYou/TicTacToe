@@ -5,10 +5,12 @@ var board = document.getElementById("board");
 var restartBtn = document.getElementById("restartBtn");
 var clearBtn =document.getElementById("clearBtn");
 var selectionBtn = document.getElementById('backgroundBtn');
+var modeBtn = document.getElementById('modeBtn');
 var winner ="";
 var playerX=0;
 var playerO=0;
 var tie=0;
+var mode = "modePlayer";
 
 webInit();
 
@@ -21,30 +23,38 @@ board.addEventListener('mouseover',function(event){
 
 
 })
-
+// ====================    main function =========================
 board.addEventListener('click',function(event)
 {
-  if (event.target.className ==="box" && step < 9 && winner != "X" && winner != "O" &&
+  if (event.target.className ==="box cell" && step < 9 && winner != "X" && winner != "O" &&
       event.target.innerHTML != "X" && event.target.innerHTML != "O"
   ){
       if(step%2 === 0){
         event.target.innerHTML="X";
         event.target.style.backgroundImage = "url('images/black-x.png')";
         step++;
-      }else {
+      } else if (mode="modePlayer"){
         event.target.innerHTML="O";
         event.target.style.backgroundImage = "url('images/white-o.png')";
         step++;
       }
+
       winner = getWinner();
-      if(winner === 'X'){
+      //============ AI action if mode = AI ==============
+      if (mode === "modeAI" && winner !='X' && winner !='O'){
+        setTimeout(AIaction,1000); // AI action
+        //AIaction();
+        step++;
+      }
+      if(getWinner() === 'X'){
+        // debugger;
         congraduation(winner);
         show();
         showLong();
         playerX++;
         document.getElementById('playerXS').innerHTML = playerX.toString();
       }
-      if(winner === 'O'){
+      if(getWinner() === 'O'){
         congraduation(winner);
         show();
         showLong();
@@ -52,7 +62,7 @@ board.addEventListener('click',function(event)
         document.getElementById('playerOS').innerHTML = playerO.toString();
       }
       if(step === 9 ){
-        if (winner !== 'X' && winner !== 'O'){
+        if (getWinner() !== 'X' && getWinner() !== 'O'){
           congraduation(winner);
           show();
           showLong();
@@ -68,12 +78,14 @@ restartBtn.addEventListener('click',function(){
     window.clearInterval(timer);
     hidden();
     resetBox();
+    resetAICell();
 });
 
 clearBtn.addEventListener("click",function(){
     window.clearInterval(timer);
     hidden();
     resetBox();
+    resetAICell();
     playerX = 0;
     playerO = 0;
     tie = 0;
@@ -85,6 +97,10 @@ clearBtn.addEventListener("click",function(){
 selectionBtn.addEventListener('change',function(){
     changeBackground();
 });
+
+modeBtn.addEventListener('change',function(){
+     mode = modeBtn.value;
+})
 
 //=================== functions ========================
 
@@ -104,7 +120,6 @@ function resetBox(){
 function show(){
   document.getElementById('congraduation').style.height = "0px";
   document.getElementById('congraduation').style.visibility= "visible";
-
 }
 
 function showLong(){
@@ -180,6 +195,10 @@ function timerCountDown(){
    document.getElementById('timeInput').value = timeLeft.toString();
    if (Number(document.getElementById('timeLeft').innerHTML) <= 0 ||
    Number(document.getElementById('timeInput').value) <= 0){
+     step = 9; // stop the round
+     congraduation(winner);
+     show();
+     showLong();
      window.clearInterval(timer);
    }
 }
@@ -189,6 +208,27 @@ function timerCountDown(){
    timer = window.setInterval(timerCountDown,1000);
 });
 
+//======================= AI ==============================
+ function AIaction(){
+   var boxs = document.getElementsByClassName("box"); // find out all the boxs with box calss name
+    for (var i=0; i<boxs.length; i++){
+       if (boxs[i].innerHTML==="X" || boxs[i].innerHTML==="O"){
+           boxs[i].className = "box";               // fliter the box with innerhtml is X or Y
+       }
+    }
+   var chooseBoxs = document.getElementsByClassName("cell");  //choose the cells without cell class name
+   var chooseCell = Math.floor(Math.random() * chooseBoxs.length); //randomly choose the cell without X or Y;
+       chooseBoxs[chooseCell].innerHTML= "O";
+       chooseBoxs[chooseCell].style.backgroundImage = "url('images/white-o.png')";
+       chooseBoxs[chooseCell].className = "box";
+ };
+
+ function resetAICell(){
+     var boxs = document.getElementsByClassName("box");
+     for (var i=0; i<boxs.length; i++){
+         boxs[i].className = "box cell";
+     }
+ };
 
 // ===============decide who is winner functions================
 var getWinner = function() {

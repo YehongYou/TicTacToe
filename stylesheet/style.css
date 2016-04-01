@@ -141,6 +141,12 @@ iframe{
 }
 
 
+#modeBtn{
+  text-align: center;
+  font-weight: bold;
+}
+
+
 
 #control{
   clear: both;
